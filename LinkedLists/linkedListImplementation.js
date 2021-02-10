@@ -48,10 +48,13 @@ class LinkedList {
         this.length++;
     }
     remove(index) {
-        let leader = this.traverseToIndex(index - 1);
-        let finalPointer = this.traverseToIndex(index + 1);
-        leader.next = finalPointer;
-        this.length--;
+        if (index >= 0) {
+            let leader = this.traverseToIndex(index - 1);
+            let finalPointer = this.traverseToIndex(index + 1);
+            leader.next = finalPointer;
+            this.length--;
+        }
+
     }
     traverseToIndex(index) {
         let i = 0;
@@ -72,17 +75,56 @@ class LinkedList {
         }
         console.log(list)
     }
+    lastItem() {
+        let currentNode = this.head;
+        let lastNode;
+        while (currentNode !== null) {
+            lastNode = currentNode
+            currentNode = currentNode.next;
 
+        }
+        return lastNode;
+    }
+    findLength() {
+        let currentNode = this.head;
+        let counter = 0;
+        while (currentNode !== null) {
+            currentNode = currentNode.next;
+            counter++
+        }
+        console.log(counter)
+        return counter;
+    }
+    reverse() {
+        if (!this.head.next) {
+            return this.head;
+        }
+        let first = this.head;
+        this.tail = this.head;
+        let second = first.next;
+
+        while (second) {
+            const temp = second.next;
+            second.next = first;
+            first = second;
+            second = temp;
+        }
+
+        this.head.next = null;
+        this.head = first;
+        return this.printList();
+    }
 }
+
+
 
 const myLinkedList = new LinkedList(4);
 myLinkedList.append(6)
-myLinkedList.append('hello')
-myLinkedList.prepend(1)
-myLinkedList.prepend('mobashir')
+myLinkedList.append(10)
+myLinkedList.append(13)
 // console.log(myLinkedList);
 // console.dir(myLinkedList, { depth: null });
 // myLinkedList.traverseToIndex(3);
-myLinkedList.insert('Farhan', 2);
-myLinkedList.remove(1);
+// myLinkedList.findLength();
+// myLinkedList.reverse();
 myLinkedList.printList();
